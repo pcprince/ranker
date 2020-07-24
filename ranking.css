@@ -1,0 +1,13 @@
+.thisthatbutton {
+	width: 400px;
+	height: 100px;
+	font-size: 40px;
+}
+
+.table td {
+	text-align: center;
+}
+
+.table th {
+	text-align: center;
+}

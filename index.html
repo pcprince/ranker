@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Rank These Things</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="ranking.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  </head>
+
+  <body>
+
+    <div class="container">
+        <div class="row">
+            <h1>Rank These Things</h1>
+        </div>
+
+        <div id="entry-ui">
+
+            <div class="row">
+                <label for="items-input">Enter items to be ranked:</label>
+            </div>
+
+            <div class="row">
+                <div class="alert alert-danger" role="alert" id="warning-alert" style="display: none;">
+                    It's impossible to rank nothing. Enter one or more items!
+                </div>
+            </div>
+
+            <div class="row">
+                <textarea id="items-input" rows="10" cols="30" style="resize: none; width: 220px;"></textarea>
+            </div>
+            <div class="row" style="margin-top: 5px;">
+                <button type="button" class="btn btn-primary" style="width:220px;" id="start-button">Start Ranking</button>
+            </div>
+
+        </div>
+
+        <div id="rank-ui" style="width: 100%; display: none;">
+
+            <div class="row" style="width: 100%;">
+                <div style="position: absolute; top: 50%; -ms-transform: translateY(-50%); transform: translateY(-50%); left: 50%; -ms-transform: translate(-50%, -50%); transform: translate(-50%, -50%);">
+                    <button type="button" class="btn btn-primary thisthatbutton" style="margin-right: 25px;" id="button0">This</button>
+                    <button type="button" class="btn btn-primary thisthatbutton" id="button1">That</button>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="results-ui" style="display: none;">
+
+            <div class="row">
+
+                <table class="table" id="results-table">
+
+                    <thead>
+                        <tr>
+                          <th scope="col">Rank</th>
+                          <th scope="col">Item</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="results-table-body"></tbody>
+
+                </table>
+
+            </div>
+
+        <div class="row" style="width: 100%;">
+                <div style="position: absolute; left: 50%; -ms-transform: translate(-50%, -50%); transform: translate(-50%, -50%);">
+                    <button type="button" class="btn btn-success" id="resetButton" style="width:220px; margin-top: 5px;">Reset</button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+  </body>
+
+  <script src="ranking.js"></script>
+
+</html>
+
+
+
+
+
+
+
+
