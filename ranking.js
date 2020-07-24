@@ -137,6 +137,8 @@ function finishRanking () {
         return scores[second] - scores[first];
     });
 
+    // TODO: Handle equal rankings
+
     for (var i = 0; i < sorted_items.length; i++) {
 
         row = resultsTableBody.insertRow();
