@@ -94,6 +94,10 @@ function updateButtons (pairing) {
     button0.innerText = pairing[0];
     button1.innerText = pairing[1];
 
+    console.log(pairing[0].length);
+    button0.style.fontSize = (pairing[0].length > 9) ? "20px" : "40px";
+    button1.style.fontSize = (pairing[1].length > 9) ? "20px" : "40px";
+
     randomIndex0 = Math.round(Math.random() * (buttonColours.length - 1));
     randomIndex1 = Math.round(Math.random() * (buttonColours.length - 1));
 
