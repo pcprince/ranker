@@ -7,6 +7,8 @@ var button1 = document.getElementById('button1');
 
 var buttonColours = [['#286090', '#204d74'], ['#800080', '#540054'], ['#289045', '#195e2d'], ['#f0ad4e', '#eea236'], ['#5bc0de', '#46b8da'], ['#dd1be0', '#b316b5'], ['#16c792', '#15a177']];
 
+var ranking = false;
+
 var scores = {};
 var previous_opponents = {};
 
@@ -129,6 +131,8 @@ function finishRanking () {
 
     var sorted_items, row, rankCell, nameCell;
 
+    ranking = false;
+
     sorted_items = Object.keys(scores).sort(function(first, second) {
         return scores[second] - scores[first];
     });
@@ -150,6 +154,12 @@ function finishRanking () {
 }
 
 function startRound () {
+
+    if (!ranking) {
+
+        return;
+
+    }
 
     pairings = createPairings();
 
@@ -208,6 +218,8 @@ function shuffle(array) {
 
 startButton.addEventListener('click', function () {
 
+    startButton.disabled = true;
+
     var items;
 
     items = itemsInput.value.split('\n').filter(checkBlank);
@@ -218,6 +230,8 @@ startButton.addEventListener('click', function () {
         return;
 
     }
+
+    ranking = true;
 
     shuffle(items);
 
@@ -260,6 +274,24 @@ function rank (choice) {
 
 }
 
+document.addEventListener('keydown', function (e) {
+
+    if (ranking) {
+
+        if (e.code === 'ArrowLeft') {
+
+            rank(0);
+
+        } else if (e.code === 'ArrowRight') {
+
+            rank(1);
+
+        }
+
+    }
+
+});
+
 button0.addEventListener('click', function () {
 
     rank(0);
@@ -288,6 +320,8 @@ resetButton.addEventListener('click', function () {
         resultsTableBody.parentNode.replaceChild(newTableBody, resultsTableBody);
         newTableBody.id = 'results-table-body';
         resultsTableBody = document.getElementById('results-table-body');
+
+        startButton.disabled = false;
 
         $('#entry-ui').fadeIn('slow');
 
