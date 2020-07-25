@@ -19,13 +19,17 @@ var resultsTable = document.getElementById('results-table');
 var resultsTableBody = document.getElementById('results-table-body');
 var resetButton = document.getElementById('resetButton');
 
-function fadeInOut (uiIn, uiOut, afterFadeOut) {
+var currentUI = '#entry-ui';
 
-    $(uiOut).fadeOut('slow');
+function fadeInOut (uiIn, afterFadeOut) {
+
+    $(currentUI).fadeOut('slow');
 
     setTimeout(function () {
 
         $(uiIn).fadeIn('slow');
+
+        currentUI = uiIn;
 
         if (afterFadeOut) {
 
@@ -185,7 +189,7 @@ function finishRanking () {
 
     }
 
-    fadeInOut('#results-ui', '#rank-ui');
+    fadeInOut('#results-ui');
 
 }
 
@@ -265,6 +269,14 @@ startButton.addEventListener('click', function () {
 
     }
 
+    if (items.length === 1) {
+
+    	scores[items[0]] = 1;
+    	finishRanking();
+    	return;
+
+    }
+
     ranking = true;
 
     shuffle(items);
@@ -283,7 +295,7 @@ startButton.addEventListener('click', function () {
 
     startRound();
 
-    fadeInOut('#rank-ui', '#entry-ui');
+    fadeInOut('#rank-ui');
 
 });
 
@@ -344,7 +356,7 @@ resetButton.addEventListener('click', function () {
     pairings = [];
     currentPairing = null;
 
-    fadeInOut('#entry-ui', '#results-ui', function () {
+    fadeInOut('#entry-ui', function () {
 
         var newTableBody = document.createElement('tbody');
         resultsTableBody.parentNode.replaceChild(newTableBody, resultsTableBody);
