@@ -19,6 +19,24 @@ var resultsTable = document.getElementById('results-table');
 var resultsTableBody = document.getElementById('results-table-body');
 var resetButton = document.getElementById('resetButton');
 
+function fadeInOut (uiIn, uiOut, afterFadeOut) {
+
+    $(uiOut).fadeOut('slow');
+
+    setTimeout(function () {
+
+        $(uiIn).fadeIn('slow');
+
+        if (afterFadeOut) {
+
+            afterFadeOut();
+
+        }
+
+    }, 1000);
+
+}
+
 function displayWarning () {
 
     $('#warning-alert').fadeIn('slow');
@@ -96,12 +114,11 @@ function updateButtons (pairing) {
     button0.innerText = pairing[0];
     button1.innerText = pairing[1];
 
-    console.log(pairing[0].length);
     button0.style.fontSize = (pairing[0].length > 9) ? "20px" : "40px";
     button1.style.fontSize = (pairing[1].length > 9) ? "20px" : "40px";
 
-    randomIndex0 = Math.round(Math.random() * (buttonColours.length - 1));
-    randomIndex1 = Math.round(Math.random() * (buttonColours.length - 1));
+    randomIndex0 = Math.floor(Math.random() * (buttonColours.length - 1));
+    randomIndex1 = Math.floor(Math.random() * (buttonColours.length - 1));
 
     while (randomIndex0 === randomIndex1) {
 
@@ -113,6 +130,7 @@ function updateButtons (pairing) {
     colours1 = buttonColours[randomIndex1];
 
     console.log(randomIndex0, randomIndex1);
+    console.log(colours0, colours1);
 
     button0.style.backgroundColor = colours0[0];
     button0.style.borderColor = colours0[1];
@@ -129,7 +147,7 @@ function updateButtons (pairing) {
 
 function finishRanking () {
 
-    var sorted_items, row, rankCell, nameCell;
+    var sorted_items, row, rankCell, nameCell, item, current_score, previous_score, rank, backgroundColors;
 
     ranking = false;
 
@@ -137,21 +155,37 @@ function finishRanking () {
         return scores[second] - scores[first];
     });
 
-    // TODO: Handle equal rankings
+    previous_score = scores[sorted_items[0]];
+    rank = 1;
+
+    backgroundColors = ['lightgrey', 'white'];
 
     for (var i = 0; i < sorted_items.length; i++) {
+
+    	item = sorted_items[i];
 
         row = resultsTableBody.insertRow();
         rankCell = row.insertCell(0);
         nameCell = row.insertCell(1);
 
-        rankCell.innerHTML = '<b>' + (i + 1) + '</b>';
-        nameCell.innerText = sorted_items[i];
+        current_score = scores[item];
+
+        if (current_score < previous_score) {
+
+        	rank += 1;
+
+        }
+
+        row.style.backgroundColor = backgroundColors[rank % 2];
+
+        previous_score = current_score;
+
+        rankCell.innerHTML = '<b>' + rank + '</b>';
+        nameCell.innerText = item;
 
     }
 
-    $('#rank-ui').fadeOut('slow');
-    $('#results-ui').fadeIn('slow');
+    fadeInOut('#results-ui', '#rank-ui');
 
 }
 
@@ -164,8 +198,6 @@ function startRound () {
     }
 
     pairings = createPairings();
-
-    console.log(pairings);
 
     if (!pairings) {
 
@@ -220,9 +252,9 @@ function shuffle(array) {
 
 startButton.addEventListener('click', function () {
 
-    startButton.disabled = true;
-
     var items;
+
+    startButton.disabled = true;
 
     items = itemsInput.value.split('\n').filter(checkBlank);
 
@@ -236,8 +268,6 @@ startButton.addEventListener('click', function () {
     ranking = true;
 
     shuffle(items);
-
-    $('#entry-ui').fadeOut('slow');
 
     scores = {}
     previous_opponents = {}
@@ -253,7 +283,7 @@ startButton.addEventListener('click', function () {
 
     startRound();
 
-    $('#rank-ui').fadeIn('slow');
+    fadeInOut('#rank-ui', '#entry-ui');
 
 });
 
@@ -314,9 +344,7 @@ resetButton.addEventListener('click', function () {
     pairings = [];
     currentPairing = null;
 
-    $('#results-ui').fadeOut('slow');
-
-    setTimeout(function () {
+    fadeInOut('#entry-ui', '#results-ui', function () {
 
         var newTableBody = document.createElement('tbody');
         resultsTableBody.parentNode.replaceChild(newTableBody, resultsTableBody);
@@ -325,8 +353,6 @@ resetButton.addEventListener('click', function () {
 
         startButton.disabled = false;
 
-        $('#entry-ui').fadeIn('slow');
-
-    }, 1000);
+    });
 
 });

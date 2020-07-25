@@ -38,17 +38,16 @@
 
         <div id="rank-ui" style="width: 100%; display: none;">
 
-            <div class="row" style="width: 100%;">
-                <div style="position: absolute; top: 50%; -ms-transform: translateY(-50%); transform: translateY(-50%); left: 50%; -ms-transform: translate(-50%, -50%); transform: translate(-50%, -50%);">
+            <div class="row" style="margin-bottom: 10px; margin-top: 40px;">
+                <div style="text-align: center; font-weight: bold;">Click which you prefer or press left/right on your keyboard.</div>
+            </div>
 
-                    <div class="row" style="margin-bottom: 10px;">
-                        <div style="text-align: center; font-weight: bold;">Click which you prefer or press left/right on your keyboard.</div>
-                    </div>
-
-                    <div class="row">
-                        <button type="button" class="btn btn-primary thisthatbutton responsive-width" style="margin-right: 25px;" id="button0">This</button>
-                        <button type="button" class="btn btn-primary thisthatbutton responsive-width" id="button1">That</button>
-                    </div>
+            <div class="row">
+                <div class="col-md-6" style="text-align: right;">
+                    <button type="button" class="btn btn-primary thisthatbutton" style="" id="button0">This</button>
+                </div>
+                <div class="col-md-6" style="">
+                    <button type="button" class="btn btn-primary thisthatbutton" id="button1">That</button>
                 </div>
             </div>
 
@@ -61,7 +60,7 @@
                 <table class="table" id="results-table">
 
                     <thead>
-                        <tr>
+                        <tr style="background-color: lightgrey; color: white;">
                           <th scope="col">Rank</th>
                           <th scope="col">Item</th>
                         </tr>
